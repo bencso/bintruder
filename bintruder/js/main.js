@@ -291,6 +291,7 @@ const startButton = document.getElementById("startAttack")
 const attackType = document.getElementById("attackType")
 startButton.onclick = async function () {
     if (currentRequest == "") { return }
+    if (args.length == 0) { return }
 
     let attack = new attackClasses[attackType.value]
     if (!attack.Setup()) {
