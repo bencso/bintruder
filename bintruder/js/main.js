@@ -249,51 +249,30 @@ class ClusterBombAttack {
             }
         }
 
-        let epic = []
+        this.list = []
         this.payloads.forEach(element => {
-            epic.push(element.payload.list)
+            this.list.push(element.payload.list)
         });
 
-        // console.log(...epic)
-        // console.log(cartesian(...epic))
+        this.list = cartesian(...this.list)
+        this.iter = 0
 
         return true
     }
 
     SendRequest() {
         let req = currentRequest
-        let stop = false
-        for (let index = 0; index < this.payloads.length; index++) {
-            let isCurrent = index == this.currentPayloadIndex
-            let payloadData = this.payloads[index]
-            let payload = payloadData.payload
-            let data
-            if (isCurrent) {
-                data = payload.GetDataNext()
-            }
-            else {
-                data = payload.GetDataCurrent()
-            }
-
-            let arg = payloadData.position
+        let values = this.list[this.iter]
+        for ( const [position, arg] of Object.entries( args ) ) {
             let start = req.search(arg) - 1
-            let value = data.value
+            let value = values[position]
             req = req.splice(start, 1, value).splice(start + value.length, arg.length + 1, "")
-            
-            if (data.stop && isCurrent) {
-                this.currentPayloadIndex++
-                // payload.Reset()
-                // this.payloads.forEach(element => {
-                //     element.payload.Reset()
-                // });
-
-                stop = this.currentPayloadIndex >= this.payloads.length
-            }
         }
 
+        this.iter++
         req.replaceAll("$", "")
 
-        return { stop: stop, request: req }
+        return { stop: this.iter >= this.list.length, request: req }
     }
 }
 
@@ -509,16 +488,16 @@ function SwitchPayloadConfig(event, value) {
     let config = payloadFormConfigs[value]
     if (config == null) { return }
 
-    let form = renderForm(config)
-    payloadConfig.appendChild(form)
-    config.setup(form, config)
-
     if (IsInClusterMode()) {
         let data = argsToData[selectedPosition.value]
         if (!data || data.type != value) {
             argsToData[selectedPosition.value] = { type: value, data: null }
         }
     }
+
+    let form = renderForm(config)
+    payloadConfig.appendChild(form)
+    config.setup(form, config)
 }
 
 payloadType.onchange = SwitchPayloadConfig
