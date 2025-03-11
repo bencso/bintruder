@@ -230,7 +230,14 @@ class SniperAttack {
         let value = data.value
         let req = currentRequest.splice(start, 1, value).splice(start + value.length, arg.length + 1, "").replaceAll("$", "")
 
-        return { stop: data.stop, request: req }
+        return { 
+            stop: data.stop, 
+            request: req,
+            replacements: [{
+                original: arg,
+                replaced: value
+            }]
+        }
     }
 }
 
@@ -263,16 +270,27 @@ class ClusterBombAttack {
     SendRequest() {
         let req = currentRequest
         let values = this.list[this.iter]
-        for ( const [position, arg] of Object.entries( args ) ) {
+        let replacements = []
+        
+        for (const [position, arg] of Object.entries(args)) {
             let start = req.search(arg) - 1
             let value = values[position]
             req = req.splice(start, 1, value).splice(start + value.length, arg.length + 1, "")
+            
+            replacements.push({
+                original: arg,
+                replaced: value
+            })
         }
 
         this.iter++
-        req.replaceAll("$", "")
+        req = req.replaceAll("$", "")
 
-        return { stop: this.iter >= this.list.length, request: req }
+        return { 
+            stop: this.iter >= this.list.length, 
+            request: req,
+            replacements: replacements
+        }
     }
 }
 
@@ -290,26 +308,29 @@ let attackQueue = []
 const startButton = document.getElementById("startAttack")
 const attackType = document.getElementById("attackType")
 startButton.onclick = async function () {
-    if (currentRequest == "") { return }
-    if (args.length == 0) { return }
+    if (currentRequest == "" || args.length == 0) return;
 
-    let attack = new attackClasses[attackType.value]
-    if (!attack.Setup()) {
-        return
-    }
+    let attack = new attackClasses[attackType.value];
+    if (!attack.Setup()) return;
 
+    let results = [];
+    
     while (true) {
-        let data = attack.SendRequest()
-        console.log(data)
-        //TODO: NOT MÜKÖDNI MÉG
-        // openPopup([rawToFetch(data.request)], data.request);
+        let data = attack.SendRequest();
+        console.log(data);
+        
+        let response = await rawToFetch(data.request);
+        results.push({
+            payload: data.request,
+            replacements: data.replacements,
+            status: response.status,
+            response: response.body
+        });
 
-        if (data.stop) {
-            break
-        }
+        if (data.stop) break;
     }
 
-    console.log("done")
+    openPopup(results, currentRequest);
 }
 //#endregion
 

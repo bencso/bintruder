@@ -67,3 +67,41 @@ textarea{
 .succes{
     color: green;
 }
+
+.original {
+    color: #d63031;
+    font-weight: bold;
+    font-family: monospace;
+    padding: 2px 0;
+}
+
+.replaced {
+    color: #00b894;
+    font-weight: bold;
+    font-family: monospace;
+    padding: 2px 0;
+}
+
+td {
+    vertical-align: middle;
+    
+    // Original and Replaced columns
+    &:nth-child(2),
+    &:nth-child(3) {
+        text-align: left;
+        min-width: 100px;
+    }
+
+    // Status column
+    &:nth-child(4) {
+        font-weight: bold;
+        
+        &[data-status="200"] {
+            color: #00b894;
+        }
+        
+        &:not([data-status="200"]) {
+            color: #d63031;
+        }
+    }
+}
