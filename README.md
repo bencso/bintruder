@@ -1,7 +1,7 @@
 # iskola-bintruder
 Ez egy iskolai projektem, ahol a csapatmunkát gyakoroljuk, és szimuláljuk a céges életet.
 
-A projekt célja az volt, hogy a **Burp Suite** nevű program egy részét lefejlesszük javascript-ben.
+A projekt célja az volt, hogy a **Burp Suite** nevű program egy részét lefejlesszük javascript-ben.\
 A weboldal funckiói:
 - HTTP lekérdezések "küldése", és a "válaszok" megtekintése
 - A lekérdezés paraméterezése:
