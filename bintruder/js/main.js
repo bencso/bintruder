@@ -153,9 +153,9 @@ class BruteForcerPayload {
     Start(data) {
         let charset, min, max
         if (data) {
-            charset = data[0]
-            min = data[1]
-            max = data[2]
+            charset = data.charset
+            min = data.min
+            max = data.max
         }
         else {
             charset = document.getElementById("charset").value
@@ -163,7 +163,7 @@ class BruteForcerPayload {
             max = document.getElementById("maxLength").value
         }
 
-        if (charset == "" || min == "" || max == "") {ú
+        if (charset == "" || min == "" || max == "") {
             return false
         }
 
@@ -419,7 +419,6 @@ const payloadFormConfigs = {
                     let result = event.target.result
                     if (IsInClusterMode()) {
                         argsToData[selectedPosition.value].data = result
-                        document.getElementById("importedList").enabled = false
                     }
                     
                     document.getElementById("importedList").value = result
@@ -428,6 +427,10 @@ const payloadFormConfigs = {
 
             let list = document.getElementById("importedList")
             if (IsInClusterMode()) {
+                list.onchange = () => {
+                    argsToData[selectedPosition.value].data = document.getElementById("importedList").value
+                }
+                
                 let data = argsToData[selectedPosition.value].data
                 if (data) {
                     list.enabled = false
@@ -467,17 +470,44 @@ const payloadFormConfigs = {
             let charset = "abcd" //efghijklmnopqrstuvwxyz
             let min = 4
             let max = 4 //8
-            document.getElementById("charset").value = charset
-            document.getElementById("minLength").value = min
-            document.getElementById("maxLength").value = max
 
             if (IsInClusterMode()) {
-                argsToData[selectedPosition.value].data = [
-                    charset = charset,
-                    min = min,
-                    max = max
-                ]
+                let data = argsToData[selectedPosition.value].data
+                if (data) {
+                    charset = data.charset
+                    min = data.min
+                    max = data.max
+                }
+                else {
+                    argsToData[selectedPosition.value].data = {
+                        charset : charset,
+                        min : min,
+                        max : max
+                    }
+                }
             }
+
+            let input_charset = document.getElementById("charset")
+            let input_min = document.getElementById("minLength")
+            let input_max = document.getElementById("maxLength")
+
+            input_charset.value = charset
+            input_min.value = min
+            input_max.value = max
+
+            let onchange = () => {
+                if (IsInClusterMode()) {
+                    argsToData[selectedPosition.value].data = {
+                        charset : document.getElementById("charset").value,
+                        min : document.getElementById("minLength").value,
+                        max : document.getElementById("maxLength").value
+                    }
+                }
+            }
+
+            input_charset.onchange = onchange
+            input_min.onchange = onchange
+            input_max.onchange = onchange
         }
     }
 }
