@@ -1,7 +1,8 @@
 # iskola-bintruder
 Ez egy iskolai projektem, ahol a csapatmunkát gyakoroljuk, és szimuláljuk a céges életet.
 
-A projekt célja az volt, hogy a **Burp Suite** nevű program egy részét lefejlesszük javascript-ben.\
+A projekt célja az volt, hogy a [Burp Suite](https://portswigger.net/burp) nevű program egy részét lefejlesszük javascript-ben.\
+A **Burp Suite** segítségével a fejlesztők könnyebben tudják tesztelni a weboldalaik biztonságát, és akár a gyengeségeiket is meg tudják találni.\
 A weboldal funckiói:
 - HTTP lekérdezések "küldése", és a "válaszok" megtekintése
 - A lekérdezés paraméterezése:
@@ -13,3 +14,10 @@ A weboldal funckiói:
 - Több féle támadás:
   - "Sniper" - Minden paramétér helyére egyesével beilleszti a megadott érték típust
   - "Cluster Bomb" - Minden paraméternek saját érték típusa van, és egyszerre vannak behelyettesítve
+
+Készítők:
+- Bábolnai Bence ([Bencso](https://github.com/bencso))
+  - Az oldal stílusa
+  - A lekérdezések eredményének megjelenítése
+- Vajda Dániel ([Vajdani](https://github.com/Vajdani))
+  - Az oldal funkcionalitása
