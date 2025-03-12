@@ -1,9 +1,12 @@
 //#region Dependencies
-import { rawRequest, cartesian } from "./dependencies.js"
+import { cartesian, rawToFetch } from "./dependencies.js"
 import { renderForm } from "./field.js"
 import { openPopup } from "./popup.js"
 //#endregion
 
+
+
+//#region Base functionality, setup
 const requestBody = document.getElementById("requestBody")
 const selectedPositionPanel = document.getElementById("selectedPositionPanel")
 selectedPositionPanel.style.display = "none"
@@ -78,6 +81,11 @@ document.getElementById("removeParams").onclick = function () {
     args = []
     currentRequest = ""
     UpdateRequest()
+
+    if (IsInClusterMode()) {
+        selectedPosition.innerHTML = ""
+        argsToData = []
+    }
 }
 
 function UpdateRequest(value) {
@@ -92,9 +100,11 @@ function UpdateRequest(value) {
     requestBody.disabled = false
     requestBody.value = currentRequest
 }
+//#endregion
 
 
-//#region Start attack
+
+//#region Payload classes
 class SimpleListPayload {
     iteration = -1
 
@@ -215,7 +225,11 @@ class BruteForcerPayload {
         this.iteration = -1
     }
 }
+//#endregion
 
+
+
+//#region Attack classes
 class SniperAttack {
     Setup() {
         this.payload = new payloadClasses[payloadType.value]
@@ -293,7 +307,11 @@ class ClusterBombAttack {
         }
     }
 }
+//#endregion
 
+
+
+//#region Attack logic
 const payloadClasses = {
     0: SimpleListPayload,
     2: BruteForcerPayload
@@ -304,7 +322,6 @@ const attackClasses = {
     3: ClusterBombAttack
 }
 
-let attackQueue = []
 const startButton = document.getElementById("startAttack")
 const attackType = document.getElementById("attackType")
 startButton.onclick = async function () {
@@ -332,42 +349,7 @@ startButton.onclick = async function () {
 
     openPopup(results, currentRequest);
 }
-//#endregion
 
-//#region Request parsing
-async function rawToFetch(raw) {
-    const [requestLine, ...headersAndBody] = raw.split('\n');
-    const [method, path, protocol] = requestLine.split(' ');
-
-    const headers = {};
-    let body = '';
-
-    let isHeaderSection = true;
-    for (const line of headersAndBody) {
-        if (isHeaderSection && line === '') {
-            isHeaderSection = false;
-            continue;
-        }
-        if (isHeaderSection) {
-            const [headerName, headerValue] = line.split(': ');
-            headers[headerName] = headerValue;
-        } else {
-            body += line;
-        }
-    }
-
-    return {
-        method,
-        path,
-        protocol,
-        headers,
-        body
-    };
-}
-//#endregion
-
-
-//#region Attack select functions
 attackType.onchange = () => {
     let type = attackType.value
     argsToData = []
@@ -386,7 +368,9 @@ attackType.onchange = () => {
 }
 //#endregion
 
-//#region Payload select functions
+
+
+//#region Payload form data and switching logic
 const payloadFormConfigs = {
     0: {
         fields: [
