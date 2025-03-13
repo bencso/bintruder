@@ -21,7 +21,9 @@ A weboldal funckiói:
 2. Ez után, egy alap HTML lekérdezés meg fog jelenni az oldalon. Ezt a lekérdezést bárhogy mnegváltoztathatja.
 3. Ha kijelöli a szöveg egy részét, és megnyomja az **Add** gombot - vagy az *Alt + C* billentyűkombinációt, akkor hozzá tud adni a lekérdezéshez egy paramétert.
 4. A **Payloads** szekcióban tudja megszabni hogy a paraméterek milyen adatokkal lesznek elküldve.
-5. 
+5. Az oldal tetején található lenyíló menüben választhatja ki a támadás módját.
+6. A **Start Attack** gombra nyomva tudja elindítani a támadást.
+7. A támadás befejezése után, megnyílik egy ablak ahol meg tudja tekintenti a lekérdezésekre küldött válaszokat.
 
 # Készítők:
 - Bábolnai Bence ([Bencso](https://github.com/bencso))
