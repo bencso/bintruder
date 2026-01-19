@@ -1,33 +1,100 @@
-# iskola-bintruder
-Ez egy iskolai projektem, ahol a csapatmunkát gyakoroljuk, és szimuláljuk a céges életet.
+# BINtruder 🔐🎯
 
-# Info
-A projekt célja az volt, hogy a [Burp Suite](https://portswigger.net/burp) nevű program egy részét lefejlesszük javascript-ben.\
-A **Burp Suite** segítségével a fejlesztők könnyebben tudják tesztelni a weboldalaik biztonságát, és akár a gyengeségeiket is meg tudják találni.\
-A weboldal funckiói:
-- HTTP lekérdezések "küldése", és a "válaszok" megtekintése
-- A lekérdezés paraméterezése:
-  - Lehet több paraméter
-  - A kiválasztott támadástól függően több féle érték típus kiválasztása
-- Több féle érték típus:
-  - "Simple list" - Bármilyen értékek listája, vagy a weboldalon beírva vagy file-ból feltöltve
-  - "Brute forcer" - Egy karaktersorozatból legenerálja az összes kombinációt a megadott hossz intervallumban
-- Több féle támadás:
-  - "Sniper" - Minden paramétér helyére egyesével beilleszti a megadott érték típust
-  - "Cluster Bomb" - Minden paraméternek saját érték típusa van, és egyszerre vannak behelyettesítve
+> Burp Suite Intruder klón - Iskolai csapatmunka projekt
 
-# Használat
-1. Írja be a **Target** mezőbe a weboldal linkjét, és nyomja meg az *Enter* billentyűt
-2. Ez után, egy alap HTML lekérdezés meg fog jelenni az oldalon. Ezt a lekérdezést bárhogy mnegváltoztathatja.
-3. Ha kijelöli a szöveg egy részét, és megnyomja az **Add** gombot - vagy az *Alt + C* billentyűkombinációt, akkor hozzá tud adni a lekérdezéshez egy paramétert.
-4. A **Payloads** szekcióban tudja megszabni hogy a paraméterek milyen adatokkal lesznek elküldve.
-5. Az oldal tetején található lenyíló menüben választhatja ki a támadás módját.
-6. A **Start Attack** gombra nyomva tudja elindítani a támadást.
-7. A támadás befejezése után, megnyílik egy ablak ahol meg tudja tekintenti a lekérdezésekre küldött válaszokat.
+## 🎯 Projekt célja
 
-# Készítők:
-- Bábolnai Bence ([Bencso](https://github.com/bencso))
-  - Az oldal stílusa
+Ez egy iskolai csapatmunka projekt, ahol a Burp Suite Intruder funkcióját fejlesztettük le JavaScript-ben. A projekt célja a csapatmunka gyakorlása és a céges élet szimulálása (meeting-ek, megbeszélések).
+
+## ✨ Funkciók
+
+- 🌐 **HTTP lekérdezések küldése** - Kérések elküldése és válaszok megtekintése
+- 🎯 **Paraméterezés** - Többszörös paraméterek kijelölése és támadás
+- 📝 **Simple list** - Érték lista megadása manuálisan vagy fájlból
+- 🔢 **Brute forcer** - Összes kombináció generálása karaktersorozatból
+- 🎯 **Sniper támadás** - Paraméterek egyesével való tesztelése
+- 💣 **Cluster Bomb támadás** - Minden paraméter saját érték típusával
+- 📊 **Válasz megjelenítés** - Lekérdezések eredményének megtekintése
+
+## 🛠️ Technológiák
+
+- **JavaScript** - Frontend logika és funkcionalitás
+- **HTML/CSS** - Felhasználói felület és design
+
+## 💭 Fejlesztési folyamat
+
+Ez egy iskolai csapatmunka projekt volt, amelynek célja a Burp Suite Intruder eszköz egy részének újraalkotása. A projekt során gyakoroltuk a valós céges munkafolyamatokat, beleértve a meeting-eket és a csapatmunkát.
+
+## 🔧 Használat
+
+### 1. Target megadása
+Írja be a **Target** mezőbe a weboldal linkjét, és nyomja meg az *Enter* billentyűt.
+
+### 2. Lekérdezés szerkesztése
+Egy alap HTML lekérdezés megjelenik az oldalon, amelyet tetszés szerint módosíthat.
+
+### 3. Paraméterek hozzáadása
+Jelölje ki a szöveg egy részét, és nyomja meg az **Add** gombot (vagy *Alt + C* billentyűkombináció) egy paraméter hozzáadásához.
+
+### 4. Payload beállítása
+A **Payloads** szekcióban adja meg, milyen adatokkal lesznek elküldve a paraméterek.
+
+### 5. Támadás típusa
+Az oldal tetején lévő lenyíló menüben válassza ki a támadás módját.
+
+### 6. Támadás indítása
+A **Start Attack** gombra nyomva indíthatja el a támadást.
+
+### 7. Eredmények
+A támadás befejezése után megnyílik egy ablak, ahol megtekintheti a válaszokat.
+
+## 🎓 Tanulási célok
+
+A projekt során gyakoroltuk:
+- Csapatmunka és kommunikáció
+- Céges munkafolyamatok szimulálása (prezentálás, megbeszélések)
+- JavaScript fejlesztés
+- UI/UX tervezés
+
+## 👥 Csapat
+
+**A projekten dolgoztunk:**
+
+- **Bábolnai Bence** ([Bencso](https://github.com/bencso))
+  - Az oldal stílusa (UI/UX design)
   - A lekérdezések eredményének megjelenítése
-- Vajda Dániel ([Vajdani](https://github.com/Vajdani))
+
+- **Vajda Dániel** ([Vajdani](https://github.com/Vajdani))
   - Az oldal funkcionalitása
+
+## 📚 Kapcsolódó eszköz
+
+A projekt a [Burp Suite Intruder](https://portswigger.net/burp) funkciójának JavaScript implementációja. A Burp Suite segítségével a fejlesztők könnyebben tudják tesztelni a weboldalaik biztonságát és megtalálni a gyengeségeiket.
+
+## 🚀 Futtatás
+
+```bash
+# Projekt klónozása
+git clone https://github.com/bencso/bintruder.git
+cd bintruder
+
+# Böngészőben megnyitni az index.html fájlt
+```
+
+## 📄 Licensz
+
+MIT License - Szabadon használható és módosítható
+
+***
+
+**Státusz:** ✅ Befejezett
+
+***
+
+## 💭 Megjegyzések
+
+Ez egy oktató projekt volt, amely a Burp Suite Intruder eszköz alapfunkcióit szimulálja. A projekt során megtanultuk a csapatmunka fontosságát és a céges munkafolyamatok alapjait.
+
+***
+
+**⭐ Ha tetszik a projekt, örülök egy csillagnak!**
